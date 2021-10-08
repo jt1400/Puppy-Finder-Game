@@ -10,12 +10,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.As3">
         <activity
-            android:name=".WelcomeActivity"
-            android:exported="true" />
+            android:name=".GameScreenActivity"
+            android:exported="true"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".OptionsActivity"
+            android:exported="true"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".HelpActivity"
+            android:exported="true"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".MainMenu"
+            android:exported="true"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:screenOrientation="landscape">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
