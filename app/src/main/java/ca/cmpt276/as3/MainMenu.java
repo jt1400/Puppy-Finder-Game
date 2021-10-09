@@ -4,11 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import ca.cmpt276.as3.model.GameOption;
+
 public class MainMenu extends AppCompatActivity {
+    private GameOption gameOption;
+    public static final String APP_PREFERENCES = "AppPreferences";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,10 @@ public class MainMenu extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        gameOption = GameOption.getInstance();
+        gameOption.setNumPuppy(OptionsActivity.getNumPuppies(this));
+        gameOption.setNumRow(OptionsActivity.getBoardSizeRow(this));
+        gameOption.setNumPuppy(OptionsActivity.getBoardSizeCol(this));
     }
 
     public static Intent makeIntent(Context context)

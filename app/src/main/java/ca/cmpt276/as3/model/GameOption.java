@@ -1,18 +1,15 @@
 package ca.cmpt276.as3.model;
 
 public class GameOption {
-    public static final int DEFAULT_ROW = 4;
-    public static final int DEFAULT_COL = 6;
-    public static final int DEFAULT_PUPPY = 6;
     private int numRow;
     private int numCol;
     private int numPuppy;
     private static GameOption instance;
 
     private GameOption(){
-        numRow = DEFAULT_ROW;
-        numCol = DEFAULT_COL;
-        numPuppy = DEFAULT_PUPPY;
+        numRow = 4;
+        numCol = 6;
+        numPuppy = 6;
     }
 
     public static GameOption getInstance(){

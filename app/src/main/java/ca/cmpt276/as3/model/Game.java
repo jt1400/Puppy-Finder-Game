@@ -10,13 +10,34 @@ public class Game {
     private int numPuppiesFound;
     private Tile tiles[][];
 
+    public Game(GameOption options)
+    {
+        this.NUM_ROWS = options.getNumRow();
+        this.NUM_COLS = options.getNumCol();
+        this.NUM_PUPPIES = options.getNumPuppy();
+        numPuppiesFound = 0;
+        initializeTilesMatrix();
+        generateRandomPuppiesLocation();
+    }
+
     public Game(int NUM_ROWS, int NUM_COLS, int NUM_PUPPIES) {
         this.NUM_ROWS = NUM_ROWS;
         this.NUM_COLS = NUM_COLS;
         this.NUM_PUPPIES = NUM_PUPPIES;
         numPuppiesFound = 0;
-        tiles = new Tile[NUM_ROWS][NUM_COLS];
+        initializeTilesMatrix();
         generateRandomPuppiesLocation();
+    }
+
+    private void initializeTilesMatrix(){
+        tiles = new Tile[NUM_ROWS][NUM_COLS];
+        for(int row=0; row < NUM_ROWS; row++)
+        {
+            for(int col=0; col < NUM_COLS; col++)
+            {
+                tiles[row][col] = new Tile();
+            }
+        }
     }
 
     private void generateRandomPuppiesLocation() {
