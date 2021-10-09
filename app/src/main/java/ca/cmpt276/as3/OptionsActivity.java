@@ -1,6 +1,7 @@
 package ca.cmpt276.as3;
 
 import androidx.appcompat.app.AppCompatActivity;
+import ca.cmpt276.as3.model.GameOption;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +20,7 @@ public class OptionsActivity extends AppCompatActivity {
     public static final String COL_SIZE = "Col size";
     public static final String NUMBER_OF_PUPPIES = "Number of puppies";
 
+    GameOption gameOption;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +28,7 @@ public class OptionsActivity extends AppCompatActivity {
 
         createRadioButtonsForNumPuppies();
         createRadioButtonsForBoardSize();
+        gameOption = GameOption.getInstance();
     }
 
     private void createRadioButtonsForBoardSize() {
@@ -40,11 +43,12 @@ public class OptionsActivity extends AppCompatActivity {
             RadioButton button = new RadioButton(this);
             button.setText(getString(R.string.rows_by, numRow) + " " + getString(R.string.columns, numCol));
 
-            // TODO set onclick callback
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     saveBoardSize(numRow, numCol);
+                    gameOption.setNumCol(numCol);
+                    gameOption.setNumRow(numRow);
                 }
             });
 
@@ -81,11 +85,11 @@ public class OptionsActivity extends AppCompatActivity {
             RadioButton button = new RadioButton(this);
             button.setText(getString(R.string.puppies, numPuppy));
 
-            // TODO set onclick callback
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     saveNumPuppies(numPuppy);
+                    gameOption.setNumPuppy(numPuppy);
                 }
             });
 
