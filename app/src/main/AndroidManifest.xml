@@ -8,11 +8,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.As3">
+        android:theme="@style/Theme.As3"
+        >
         <activity
             android:name=".GameScreenActivity"
             android:exported="true"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape"
+            />
         <activity
             android:name=".OptionsActivity"
             android:exported="true"
@@ -26,8 +28,10 @@
             android:exported="true"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".WelcomeActivity"
+            android:exported="true"
+            android:screenOrientation="landscape"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

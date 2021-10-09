@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">As3</string>
+    <string name="rows_by">%1$d rows by</string>
+    <string name="columns">%1$d columns</string>
+    <string name="puppies">%1$d puppies</string>
 </resources>

@@ -20,6 +20,11 @@ public class MainMenu extends AppCompatActivity {
         setUpButtonHelp();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
     public static Intent makeIntent(Context context)
     {
         Intent intent = new Intent(context, MainMenu.class);
