@@ -19,8 +19,8 @@ public class OptionsActivity extends AppCompatActivity {
     public static final String ROW_SIZE = "Row size";
     public static final String COL_SIZE = "Col size";
     public static final String NUMBER_OF_PUPPIES = "Number of puppies";
-
     GameOption gameOption;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

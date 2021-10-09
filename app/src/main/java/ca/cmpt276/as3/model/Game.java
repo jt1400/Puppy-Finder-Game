@@ -8,6 +8,7 @@ public class Game {
     private final int NUM_PUPPIES;
 
     private int numPuppiesFound;
+    private int numOfScans;
     private Tile tiles[][];
 
     public Game(GameOption options)
@@ -16,6 +17,7 @@ public class Game {
         this.NUM_COLS = options.getNumCol();
         this.NUM_PUPPIES = options.getNumPuppy();
         numPuppiesFound = 0;
+        numOfScans = 0;
         initializeTilesMatrix();
         generateRandomPuppiesLocation();
     }
@@ -25,6 +27,7 @@ public class Game {
         this.NUM_COLS = NUM_COLS;
         this.NUM_PUPPIES = NUM_PUPPIES;
         numPuppiesFound = 0;
+        numOfScans = 0;
         initializeTilesMatrix();
         generateRandomPuppiesLocation();
     }
@@ -56,15 +59,24 @@ public class Game {
         }
     }
 
-    public boolean checkForPuppy(int row, int col){
+    public boolean checkForHiddenPuppy(int row, int col){
         if(tiles[row][col].isContainPuppy() && !tiles[row][col].isPuppyRevealed()){
             numPuppiesFound++;
+            tiles[row][col].setPuppyRevealed(true);
             return true;
         }
         return false;
     }
 
+    public boolean isTileScanned(int row, int col)
+    {
+        return tiles[row][col].isScanned();
+    }
+
     public int scanTile(int row, int col){
+        numOfScans++;
+        tiles[row][col].setScanned(true);
+
         int counter = 0;
 
         // count the puppy in the row
@@ -82,4 +94,13 @@ public class Game {
         return counter;
     }
 
+    public int getNumPuppiesFound()
+    {
+        return numPuppiesFound;
+    }
+
+    public int getNumOfScans()
+    {
+        return numOfScans;
+    }
 }

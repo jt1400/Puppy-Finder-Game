@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import java.util.Locale;
+
 public class GameScreenActivity extends AppCompatActivity {
     GameOption gameOption;
     Game game;
@@ -56,7 +58,6 @@ public class GameScreenActivity extends AppCompatActivity {
                         1.0f
                 ));
 
-
                 tile.setPadding(0, 0, 0, 0);
                 tile.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -75,13 +76,52 @@ public class GameScreenActivity extends AppCompatActivity {
 
         lockButtonSize();
 
-        //scale image to button (only works with JellyBean)
-        int newWidth = button.getWidth();
-        int newHeight = button.getHeight();
-        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.puppiesandbooks);
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
-        Resources resource = getResources();
-        button.setBackground(new BitmapDrawable(resource, scaledBitmap));
+        if(game.checkForHiddenPuppy(row, col))
+        {
+            //scale image to button (only works with JellyBean)
+            int newWidth = button.getWidth();
+            int newHeight = button.getHeight();
+            Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.puppiesandbooks);
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
+            Resources resource = getResources();
+            button.setBackground(new BitmapDrawable(resource, scaledBitmap));
+
+            //once we show the hidden puppy, we need to update the counts
+            for(int i=0; i < gameOption.getNumCol(); i++)
+            {
+                if(game.isTileScanned(row, i))
+                {
+                    String countAsString = buttons[row][i].getText().toString();
+                    int countAsInt = Integer.parseInt(countAsString);
+                    countAsInt--;
+                    buttons[row][i].setText(String.format(Locale.getDefault(), "%d", countAsInt));
+                }
+            }
+
+            for(int i=0; i < gameOption.getNumRow(); i++)
+            {
+                if(game.isTileScanned(i, col))
+                {
+                    String countAsString = buttons[i][col].getText().toString();
+                    int countAsInt = Integer.parseInt(countAsString);
+                    countAsInt--;
+                    buttons[i][col].setText(String.format(Locale.getDefault(), "%d", countAsInt));
+                }
+            }
+
+            if(game.getNumPuppiesFound() == gameOption.getNumPuppy())
+            {
+                finish();
+            }
+        }
+        else
+        {
+            if(!game.isTileScanned(row, col))
+            {
+                int scanResult = game.scanTile(row, col);
+                buttons[row][col].setText(String.format(Locale.getDefault(), "%d", scanResult));
+            }
+        }
     }
 
     private void lockButtonSize()
