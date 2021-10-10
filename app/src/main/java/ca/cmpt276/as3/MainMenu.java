@@ -31,7 +31,7 @@ public class MainMenu extends AppCompatActivity {
         gameOption = GameOption.getInstance();
         gameOption.setNumPuppy(OptionsActivity.getNumPuppies(this));
         gameOption.setNumRow(OptionsActivity.getBoardSizeRow(this));
-        gameOption.setNumPuppy(OptionsActivity.getBoardSizeCol(this));
+        gameOption.setNumCol(OptionsActivity.getBoardSizeCol(this));
     }
 
     public static Intent makeIntent(Context context)
