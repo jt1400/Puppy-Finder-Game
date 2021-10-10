@@ -7,18 +7,27 @@
     tools:context=".MainMenu"
     android:background="@drawable/puppiesandbooks">
 
-    <TextView
-        android:id="@+id/textViewMainMenu"
-        android:layout_width="wrap_content"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout2"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Main Menu"
-        android:textColor="#FB8C00"
-        android:textSize="34sp"
-        android:textStyle="bold"
+        android:theme="@style/Theme.As3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark"
+        tools:visibility="visible">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFB300"
+            android:visibility="visible"
+            app:popupTheme="@style/Theme.As3"
+            app:title="@string/main_menu"
+            app:titleTextColor="#FFFFFF" />
+    </com.google.android.material.appbar.AppBarLayout>
 
     <Button
         android:id="@+id/buttonPlayGame"
@@ -30,7 +39,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMainMenu" />
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2" />
 
     <Button
         android:id="@+id/buttonOptions"
