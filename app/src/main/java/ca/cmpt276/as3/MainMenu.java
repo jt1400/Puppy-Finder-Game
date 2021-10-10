@@ -36,8 +36,7 @@ public class MainMenu extends AppCompatActivity {
 
     public static Intent makeIntent(Context context)
     {
-        Intent intent = new Intent(context, MainMenu.class);
-        return intent;
+        return new Intent(context, MainMenu.class);
     }
 
     private void setUpButtonPlayGame()

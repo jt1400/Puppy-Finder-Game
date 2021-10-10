@@ -17,9 +17,8 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
         setupSKipButton();
-//        ImageView image = findViewById(R.id.ivWelcomeAnimation);
-//        image.setVisibility(View.VISIBLE);
         setupPuppyVideo();
     }
 
@@ -36,12 +35,9 @@ public class WelcomeActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent = new Intent(WelcomeActivity.this, MainMenu.class);
-                        startActivity(intent);
+                        launchMainMenu();
                     }
                 }, 4000);
-                Intent intent = new Intent(WelcomeActivity.this, MainMenu.class);
-                startActivity(intent);
             }
         });
     }
@@ -51,10 +47,16 @@ public class WelcomeActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(WelcomeActivity.this, MainMenu.class);
-                startActivity(intent);
+                launchMainMenu();
             }
         });
+    }
+
+    private void launchMainMenu()
+    {
+        Intent intent = MainMenu.makeIntent(WelcomeActivity.this);
+        startActivity(intent);
+        finish();
     }
 
 }
