@@ -21,7 +21,6 @@ public class WelcomeActivity extends AppCompatActivity {
 //        ImageView image = findViewById(R.id.ivWelcomeAnimation);
 //        image.setVisibility(View.VISIBLE);
         setupPuppyVideo();
-
     }
 
     private void setupPuppyVideo() {
@@ -57,6 +56,5 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
     }
-
 
 }

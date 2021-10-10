@@ -32,7 +32,6 @@ public class WinDialogFragment extends AppCompatDialogFragment{
         };
 
         TextView title = new TextView(getContext());
-
         title.setText("YOU WIN!");
         title.setGravity(Gravity.CENTER);
         title.setPadding(10, 10, 10, 10);
