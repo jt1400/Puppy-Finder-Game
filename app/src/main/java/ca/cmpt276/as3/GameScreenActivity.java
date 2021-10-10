@@ -87,7 +87,7 @@ public class GameScreenActivity extends AppCompatActivity {
             //scale image to button (only works with JellyBean)
             int newWidth = button.getWidth();
             int newHeight = button.getHeight();
-            Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.puppiesandbooks);
+            Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.seekpng_com_cute_puppy_png_853146);
             Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
             Resources resource = getResources();
             button.setBackground(new BitmapDrawable(resource, scaledBitmap));
