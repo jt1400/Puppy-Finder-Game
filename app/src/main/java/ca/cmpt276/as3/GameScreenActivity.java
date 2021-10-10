@@ -2,6 +2,7 @@ package ca.cmpt276.as3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.fragment.app.FragmentManager;
 import ca.cmpt276.as3.model.Game;
 import ca.cmpt276.as3.model.GameOption;
 
@@ -10,7 +11,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -18,8 +18,6 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.Locale;
 
@@ -117,7 +115,9 @@ public class GameScreenActivity extends AppCompatActivity {
 
             if(game.getNumPuppiesFound() == gameOption.getNumPuppy())
             {
-                finish();
+                FragmentManager manager = getSupportFragmentManager();
+                WinDialogFragment dialog = new WinDialogFragment();
+                dialog.show(manager,"WinDialog");
             }
         }
         else
