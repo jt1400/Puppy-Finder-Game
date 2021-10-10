@@ -10,12 +10,16 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.Locale;
 
@@ -33,6 +37,7 @@ public class GameScreenActivity extends AppCompatActivity {
         buttons = new Button[gameOption.getNumRow()][gameOption.getNumCol()];
 
         populateTiles();
+        updateGameStatus();
     }
 
     private void populateTiles() {
@@ -58,6 +63,7 @@ public class GameScreenActivity extends AppCompatActivity {
                         1.0f
                 ));
 
+                tile.getBackground().setAlpha(200);
                 tile.setPadding(0, 0, 0, 0);
                 tile.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -122,6 +128,8 @@ public class GameScreenActivity extends AppCompatActivity {
                 buttons[row][col].setText(String.format(Locale.getDefault(), "%d", scanResult));
             }
         }
+
+        updateGameStatus();
     }
 
     private void lockButtonSize()
@@ -145,7 +153,18 @@ public class GameScreenActivity extends AppCompatActivity {
 
     public static Intent makeIntent(Context context)
     {
-        Intent intent = new Intent(context, GameScreenActivity.class);
-        return intent;
+        return new Intent(context, GameScreenActivity.class);
+    }
+
+    private void updateGameStatus()
+    {
+        TextView tvTotalPuppies = findViewById(R.id.textViewTotalPuppies);
+        String puppy_status = "Found " + game.getNumPuppiesFound() + " out of " + gameOption.getNumPuppy() + " puppies.";
+        tvTotalPuppies.setText(puppy_status);
+
+        TextView tvNumScans = findViewById(R.id.textViewNumOfScans);
+        String num_scans = getString(R.string.number_of_scans_used);
+        num_scans = num_scans.concat(String.format(Locale.getDefault()," %d", game.getNumOfScans()));
+        tvNumScans.setText(num_scans);
     }
 }
