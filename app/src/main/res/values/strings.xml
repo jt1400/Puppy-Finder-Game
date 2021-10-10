@@ -7,4 +7,25 @@
     <string name="help">Help</string>
     <string name="options">Game options</string>
     <string name="main_menu">Main menu</string>
+
+    <string name="game_instructions">
+        To find a hidden puppy, you can click on any of the cell on your game screen.
+        If the cell happens to contain a hidden puppy, then congrats, you have just found one more puppy.
+        If the cell does not contain a hidden puppy, then it will show you the number of hidden puppies left on that row and column.
+        You can also click on a puppy to trigger the scan on its row and column for hidden puppies.
+    </string>
+
+    <string name="link_course_website">
+        Written by Jocelyn Tandrea and Ivy Tran for Introduction to Software Engineering.\nCourse website:
+        <a href="https://opencoursehub.cs.sfu.ca/bfraser/grav-cms/cmpt276/home">https://opencoursehub.cs.sfu.ca/bfraser/grav-cms/cmpt276/home</a>
+    </string>
+
+    <string name="resourceList">
+        Image of Puppies and Books by Iryna Kazlova Airspa\n
+        <a href="https://www.dreamstime.com/cute-little-puppies-shelf-books-light-background-pembroke-welsh-corgi-closeup-photo-image140177115">https://www.dreamstime.com/cute-little-puppies-shelf-books-light-background-pembroke-welsh-corgi-closeup-photo-image140177115</a>
+    </string>
+
+    <string name="puppy_seeker">Puppy Seeker</string>
+    <string name="authors">Authors</string>
+    <string name="resources">Resources</string>
 </resources>
