@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +17,7 @@ public class MainMenu extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        overridePendingTransition(0, 0);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         setContentView(R.layout.activity_main_menu);
 
         setUpButtonPlayGame();
@@ -51,6 +50,15 @@ public class MainMenu extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        animate(btnPlayGame);
+    }
+
+    private void animate(Button button) {
+        button.setAlpha(0f);
+        button.setTranslationY(50);
+
+        button.animate().alpha(1f).translationYBy(-50).setDuration(1000);
     }
 
     private void setUpButtonOptions()
@@ -64,6 +72,7 @@ public class MainMenu extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        animate(btnOptions);
     }
 
     private void setUpButtonHelp()
@@ -77,5 +86,6 @@ public class MainMenu extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        animate(btnHelp);
     }
 }

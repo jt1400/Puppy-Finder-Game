@@ -19,11 +19,13 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
         setContentView(R.layout.activity_welcome);
 
         setupPuppyVideo();
-        setupTitleAnimation();
         setupSKipButton();
+        setupTitleAnimation();
 
     }
 
@@ -71,14 +73,22 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void setupSKipButton() {
         Button button = findViewById(R.id.btnSkip);
+        button.setAlpha(0f);
+        button.setTranslationY(50);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                button.animate().alpha(1f).translationYBy(-50).setDuration(1000);
+            }
+        }, 2000);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 launchMainMenu();
             }
         });
-        Animation aniFade = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
-        button.startAnimation(aniFade);
+
     }
 
     private void launchMainMenu()
