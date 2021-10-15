@@ -48,10 +48,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="WHERE IS MY"
+        android:text="WHERE'S"
         android:textColor="#FFB300"
-        android:textSize="45dp"
-        android:textStyle="bold"
+        android:textSize="60dp"
+        android:fontFamily="@font/meows"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,10 +61,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="PUPPY?"
+        android:text="MY PUPPY?"
         android:textColor="#FFB300"
-        android:textSize="45dp"
-        android:textStyle="bold"
+        android:textSize="60dp"
+        android:fontFamily="@font/meows"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvWelcomeTitle" />
 
