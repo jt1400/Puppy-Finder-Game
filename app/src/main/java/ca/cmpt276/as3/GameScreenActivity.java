@@ -12,6 +12,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -82,6 +83,9 @@ public class GameScreenActivity extends AppCompatActivity {
 
         if(game.checkForHiddenPuppy(row, col))
         {
+            //play barking sound
+            final MediaPlayer mp = MediaPlayer.create(this, R.raw.short_bark);
+            mp.start();
             //scale image to button (only works with JellyBean)
             int newWidth = button.getWidth();
             int newHeight = button.getHeight();
