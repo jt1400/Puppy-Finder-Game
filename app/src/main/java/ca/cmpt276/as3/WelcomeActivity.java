@@ -30,6 +30,8 @@ public class WelcomeActivity extends AppCompatActivity {
     private void setupTitleAnimation() {
         TextView title1 = findViewById(R.id.tvWelcomeTitle);
         TextView title2 = findViewById(R.id.tvWelcomeTitle2);
+        TextView title3 = findViewById(R.id.tvWelcomeTitle3);
+
 
         Animation bounce = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.bounce);
         bounce.setAnimationListener(new Animation.AnimationListener() {
@@ -55,6 +57,7 @@ public class WelcomeActivity extends AppCompatActivity {
         });
         title1.startAnimation(bounce);
         title2.startAnimation(bounce);
+        title3.startAnimation(bounce);
 
     }
 

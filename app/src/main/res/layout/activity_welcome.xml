@@ -59,13 +59,26 @@
         android:id="@+id/tvWelcomeTitle2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="MY PUPPY?"
+        android:fontFamily="@font/meows"
+        android:text="MY ?"
         android:textColor="#FFB300"
         android:textSize="60dp"
-        android:fontFamily="@font/meows"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvWelcomeTitle"
+        app:layout_constraintStart_toStartOf="@id/tvWelcomeTitle"
         app:layout_constraintTop_toBottomOf="@+id/tvWelcomeTitle" />
+
+    <TextView
+        android:id="@+id/tvWelcomeTitle3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/meows"
+        android:text="PUPPY?"
+        android:textColor="#FFB300"
+        android:textSize="60dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvWelcomeTitle2"
+        app:layout_constraintStart_toStartOf="@id/tvWelcomeTitle2"
+        app:layout_constraintTop_toBottomOf="@+id/tvWelcomeTitle2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
