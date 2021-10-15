@@ -21,9 +21,9 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        setupPuppyVideo();
         setupTitleAnimation();
         setupSKipButton();
-        setupPuppyVideo();
 
     }
 
@@ -67,18 +67,6 @@ public class WelcomeActivity extends AppCompatActivity {
         videoView.setVideoURI(uri);
         videoView.start();
 
-//        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//            @Override
-//            public void onCompletion(MediaPlayer mediaPlayer) {
-//                Handler handler = new Handler();
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        launchMainMenu();
-//                    }
-//                }, 4000);
-//            }
-//        });
     }
 
     private void setupSKipButton() {
