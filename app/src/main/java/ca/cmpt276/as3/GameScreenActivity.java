@@ -94,6 +94,7 @@ public class GameScreenActivity extends AppCompatActivity {
             //add vibration
             Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
             long[] pattern = {150,100, 200, 200, 150};
+
             //vibrate for 500 ms
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                 v.vibrate(VibrationEffect.createWaveform(pattern, -1));
@@ -151,7 +152,7 @@ public class GameScreenActivity extends AppCompatActivity {
                     v.vibrate(VibrationEffect.createOneShot(400, 75));
                 }
                 else {
-                    v.vibrate(500);
+                    v.vibrate(400);
                 }
 
                 int scanResult = game.scanTile(row, col);
