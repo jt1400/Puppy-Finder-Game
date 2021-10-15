@@ -13,7 +13,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -86,6 +89,18 @@ public class GameScreenActivity extends AppCompatActivity {
             //play barking sound
             final MediaPlayer mp = MediaPlayer.create(this, R.raw.short_bark);
             mp.start();
+
+            //add vibration
+            Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+            long[] pattern = {150,100, 200, 200, 150};
+            //vibrate for 500 ms
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                v.vibrate(VibrationEffect.createWaveform(pattern, -1));
+            }
+            else {
+                v.vibrate(pattern, -1);
+            }
+
             //scale image to button (only works with JellyBean)
             int newWidth = button.getWidth();
             int newHeight = button.getHeight();
@@ -128,6 +143,16 @@ public class GameScreenActivity extends AppCompatActivity {
         {
             if(!game.isTileScanned(row, col))
             {
+                //add vibration
+                Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+                //vibrate for 500 ms
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                    v.vibrate(VibrationEffect.createOneShot(400, 75));
+                }
+                else {
+                    v.vibrate(500);
+                }
+
                 int scanResult = game.scanTile(row, col);
                 buttons[row][col].setText(String.format(Locale.getDefault(), "%d", scanResult));
             }
