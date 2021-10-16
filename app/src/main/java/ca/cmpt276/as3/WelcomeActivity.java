@@ -34,7 +34,6 @@ public class WelcomeActivity extends AppCompatActivity {
         TextView title2 = findViewById(R.id.tvWelcomeTitle2);
         TextView title3 = findViewById(R.id.tvWelcomeTitle3);
 
-
         Animation bounce = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.bounce);
         bounce.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -57,10 +56,10 @@ public class WelcomeActivity extends AppCompatActivity {
 
             }
         });
+
         title1.startAnimation(bounce);
         title2.startAnimation(bounce);
         title3.startAnimation(bounce);
-
     }
 
     private void setupPuppyVideo() {
@@ -68,13 +67,13 @@ public class WelcomeActivity extends AppCompatActivity {
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.puppy_video2);
         videoView.setVideoURI(uri);
         videoView.start();
-
     }
 
     private void setupSKipButton() {
         Button button = findViewById(R.id.btnSkip);
         button.setAlpha(0f);
         button.setTranslationY(50);
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

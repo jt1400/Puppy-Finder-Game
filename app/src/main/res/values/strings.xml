@@ -41,4 +41,8 @@
     <string name="reset">RESET</string>
     <string name="congratulations_you_found_all_of_my_puppies">Congratulations! You found all of my puppies!</string>
     <string name="congratulations_you_have_set_a_new_best_score">Congratulations! You have set a new best score!</string>
+    <string name="congrats_you_found_all_my_puppies">Congrats! You found all my puppies!</string>
+    <string name="congrats_you_have_set_new_best_score">CONGRATULATIONS! YOU HAVE SET A NEW BEST SCORE!</string>
+    <string name="you_win">YOU WIN!</string>
+    <string name="no_best_score_recorded">No best score recorded.</string>
 </resources>

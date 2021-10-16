@@ -1,12 +1,5 @@
 package ca.cmpt276.as3;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import androidx.core.app.NotificationCompatSideChannelService;
-import androidx.fragment.app.FragmentManager;
-import ca.cmpt276.as3.model.Game;
-import ca.cmpt276.as3.model.GameOption;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,12 +21,14 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-
-import org.w3c.dom.Text;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import java.util.Arrays;
 import java.util.Locale;
+
+import ca.cmpt276.as3.model.Game;
+import ca.cmpt276.as3.model.GameOption;
 
 public class GameScreenActivity extends AppCompatActivity {
     GameOption gameOption;
@@ -95,7 +90,7 @@ public class GameScreenActivity extends AppCompatActivity {
         TextView tv_high_score= findViewById(R.id.textViewHighScore);
         int highScore =  gameOption.getHighScore();
         if(highScore == 91) {
-            tv_high_score.setText("No best score recorded.");
+            tv_high_score.setText(R.string.no_best_score_recorded);
         }
         else {
             tv_high_score.setText("Best score: " + highScore);
@@ -191,15 +186,14 @@ public class GameScreenActivity extends AppCompatActivity {
 
             if(game.getNumPuppiesFound() == gameOption.getNumPuppy())
             {
-// TODO: MAKE GOOD MESSAGE. RENAME BEST SCORE FRAGMENT. 
-                String winMes = "Congrats! You found all my puppies!";
+                String winMes = getString(R.string.congrats_you_found_all_my_puppies);
                 if(gameOption.isNewHighScore(game.getNumOfScans()))
                 {
-                    winMes = "NEW GAME RECORD";
+                    winMes = getString(R.string.congrats_you_have_set_new_best_score);
                 }
                 FragmentManager manager = getSupportFragmentManager();
-                BestScoreDialogFragment dialog = new BestScoreDialogFragment(winMes);
-                dialog.show(manager, "BestScoreDialog");
+                WinDialogFragment dialog = new WinDialogFragment(winMes);
+                dialog.show(manager, "WinDialog");
 
                 gameOption.setHighScore(game.getNumOfScans());
             }
@@ -207,6 +201,9 @@ public class GameScreenActivity extends AppCompatActivity {
         else
         {
             if(!game.isTileScanned(row, col)) {
+                final MediaPlayer mpWrongAnswer = MediaPlayer.create(this, R.raw.wrong_answer_sound_effect);
+                mpWrongAnswer.start();
+
                 //add vibration
                 Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
                 //vibrate for 500 ms
@@ -229,14 +226,13 @@ public class GameScreenActivity extends AppCompatActivity {
                     public void run() {
                         buttons[row][col].setText("" + game.getScanValueAtTile(row, col));
                     }
-                }, (max+1) * 200L + 300L);
+                }, (max+1) * 150L + 150L);
             }
         }
         updateGameStatus();
     }
 
     private void startScanningAnimation(int row, int col) {
-
         boolean top = true;
         boolean right = true;
         boolean bottom = true;
@@ -273,7 +269,7 @@ public class GameScreenActivity extends AppCompatActivity {
                         }
                     }
                 }
-            }, 200L * (k+1));
+            }, 150L * (k+1));
 
             if (col - i < 0) {
                 top = false;

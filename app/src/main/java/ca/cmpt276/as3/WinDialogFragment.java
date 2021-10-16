@@ -11,28 +11,25 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import ca.cmpt276.as3.R;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 
-public class BestScoreDialogFragment extends AppCompatDialogFragment{
+public class WinDialogFragment extends AppCompatDialogFragment{
     String winMessage;
-    public BestScoreDialogFragment(String winMes)
+    public WinDialogFragment(String winMes)
     {
         this.winMessage = winMes;
     }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         View v = LayoutInflater.from(getActivity())
-                .inflate(R.layout.best_score_dialog, null);
-        TextView tvWinMes = v.findViewById(R.id.winMessage2);
+                .inflate(R.layout.win_dialog, null);
+        TextView tvWinMes = v.findViewById(R.id.winMessage);
         tvWinMes.setText(this.winMessage);
 
         DialogInterface.OnClickListener listener = (dialogInterface, i) -> {
@@ -42,7 +39,7 @@ public class BestScoreDialogFragment extends AppCompatDialogFragment{
         };
 
         TextView title = new TextView(getContext());
-        title.setText("YOU WIN!");
+        title.setText(R.string.you_win);
         title.setGravity(Gravity.CENTER);
         title.setPadding(10, 10, 10, 10);
         title.setTextSize(20);
@@ -61,6 +58,5 @@ public class BestScoreDialogFragment extends AppCompatDialogFragment{
         okButtonLL.width = ViewGroup.LayoutParams.MATCH_PARENT;
         okButton.setLayoutParams(okButtonLL);
         return dialog;
-//        return super.onCreateDialog(savedInstanceState);
     }
 }

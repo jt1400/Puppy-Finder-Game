@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,9 +9,9 @@
         android:id="@+id/imageView8"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="@+id/winMessage2"
+        app:layout_constraintBottom_toBottomOf="@+id/winMessage"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/winMessage2"
+        app:layout_constraintTop_toTopOf="@+id/winMessage"
         app:srcCompat="@drawable/confetti" />
 
     <ImageView
@@ -20,17 +19,17 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleX="-1"
-        app:layout_constraintBottom_toBottomOf="@+id/winMessage2"
+        app:layout_constraintBottom_toBottomOf="@+id/winMessage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/winMessage2"
+        app:layout_constraintTop_toTopOf="@+id/winMessage"
         app:srcCompat="@drawable/confetti" />
 
     <TextView
-        android:id="@+id/winMessage2"
+        android:id="@+id/winMessage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/congratulations_you_have_set_a_new_best_score"
+        android:text="@string/congrats_you_found_all_my_puppies"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageView9"

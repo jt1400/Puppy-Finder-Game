@@ -52,7 +52,7 @@
         android:layout_marginTop="24dp"
         android:text="Select game board size"
         android:textColor="#F4511E"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -65,7 +65,7 @@
         android:layout_marginTop="24dp"
         android:text="Select total number of puppies"
         android:textColor="#F4511E"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="parent" />
@@ -75,6 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:backgroundTint="#FB8C00"
         android:text="Reset Scores"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
