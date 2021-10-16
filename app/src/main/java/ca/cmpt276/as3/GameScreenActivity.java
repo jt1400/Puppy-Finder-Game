@@ -15,14 +15,18 @@ import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 public class GameScreenActivity extends AppCompatActivity {
@@ -35,6 +39,7 @@ public class GameScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         setContentView(R.layout.activity_game_screen);
+
         gameOption = GameOption.getInstance();
         game = new Game(gameOption);
         buttons = new Button[gameOption.getNumRow()][gameOption.getNumCol()];
@@ -143,24 +148,93 @@ public class GameScreenActivity extends AppCompatActivity {
         }
         else
         {
-            if(!game.isTileScanned(row, col))
-            {
+            if(!game.isTileScanned(row, col)) {
                 //add vibration
                 Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
                 //vibrate for 500 ms
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     v.vibrate(VibrationEffect.createOneShot(400, 75));
-                }
-                else {
+                } else {
                     v.vibrate(400);
                 }
 
+                startScanningAnimation(row, col);
+
+                int[] distance = {row, gameOption.getNumRow() - row - 1, col, gameOption.getNumCol() - col - 1};
+                int max = Arrays.stream(distance).max().getAsInt();
+
                 int scanResult = game.scanTile(row, col);
-                buttons[row][col].setText(String.format(Locale.getDefault(), "%d", scanResult));
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        buttons[row][col].setText(String.format(Locale.getDefault(), "%d", scanResult));
+                    }
+                }, (max+1) * 200L + 300L);
             }
         }
-
         updateGameStatus();
+    }
+
+    private void startScanningAnimation(int row, int col) {
+
+        boolean top = true;
+        boolean right = true;
+        boolean bottom = true;
+        boolean left = true;
+        int i = 0;
+
+        Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+
+        while (top || right || bottom || left) {
+            final int k = i;
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if(col - k >= 0) {
+                        if (!game.checkIfPuppyRevealed(row, col - k)) {
+                            buttons[row][col - k].startAnimation(shake);
+                        }
+                    }
+                    if(row + k <= gameOption.getNumRow() - 1) {
+                        if (!game.checkIfPuppyRevealed(row + k, col)) {
+                            buttons[row + k][col].startAnimation(shake);
+                        }
+                    }
+                    if (col + k <= gameOption.getNumCol() - 1) {
+                        if (!game.checkIfPuppyRevealed(row, col + k)) {
+                            buttons[row][col + k].startAnimation(shake);
+                        }
+                    }
+                    if (row - k >= 0) {
+                        if (!game.checkIfPuppyRevealed(row - k, col)) {
+                            buttons[row - k][col].startAnimation(shake);
+                        }
+                    }
+                }
+            }, 200L * (k+1));
+
+            if (col - i < 0) {
+                top = false;
+            }
+
+            if (row + i > gameOption.getNumRow() - 1) {
+                right = false;
+            }
+
+            if (col + i > gameOption.getNumCol() - 1) {
+                bottom = false;
+            }
+
+            if (row - i < 0) {
+                left = false;
+            }
+            i++;
+
+        }
     }
 
     private void lockButtonSize()

@@ -68,6 +68,13 @@ public class Game {
         return false;
     }
 
+    public boolean checkIfPuppyRevealed(int row, int col){
+        if(tiles[row][col].isContainPuppy() && tiles[row][col].isPuppyRevealed()){
+            return true;
+        }
+        return false;
+    }
+
     public boolean isTileScanned(int row, int col)
     {
         return tiles[row][col].isScanned();
