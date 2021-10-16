@@ -29,12 +29,6 @@ public class MainMenu extends AppCompatActivity {
         setUpButtonHelp();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        gameOption = GameOption.getInstance();
-    }
-
     private void loadGameConfiguration()
     {
         gameOption.setNumPuppy(OptionsActivity.getNumPuppies(this));

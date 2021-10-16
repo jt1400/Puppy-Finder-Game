@@ -122,6 +122,11 @@ public class GameOption {
         }
     }
 
+    public boolean isNewHighScore(int newScore)
+    {
+        return newScore < highScores[config[0]][config[1]];
+    }
+
     public int getHighScore()
     {
         return highScores[config[0]][config[1]];

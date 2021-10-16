@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,12 +21,19 @@ import ca.cmpt276.as3.R;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 
-public class WinDialogFragment extends AppCompatDialogFragment{
+public class BestScoreDialogFragment extends AppCompatDialogFragment{
+    String winMessage;
+    public BestScoreDialogFragment(String winMes)
+    {
+        this.winMessage = winMes;
+    }
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         View v = LayoutInflater.from(getActivity())
-                .inflate(R.layout.win_message_dialog, null);
+                .inflate(R.layout.best_score_dialog, null);
+        TextView tvWinMes = v.findViewById(R.id.winMessage2);
+        tvWinMes.setText(this.winMessage);
 
         DialogInterface.OnClickListener listener = (dialogInterface, i) -> {
             if(i == DialogInterface.BUTTON_NEUTRAL){
@@ -36,6 +46,7 @@ public class WinDialogFragment extends AppCompatDialogFragment{
         title.setGravity(Gravity.CENTER);
         title.setPadding(10, 10, 10, 10);
         title.setTextSize(20);
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setCustomTitle(title)

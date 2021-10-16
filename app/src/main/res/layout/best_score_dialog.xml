@@ -7,32 +7,33 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView8"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="@+id/winMessage"
+        app:layout_constraintBottom_toBottomOf="@+id/winMessage2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/winMessage"
-        app:srcCompat="@drawable/seekpng_com_cute_puppy_png_853146" />
+        app:layout_constraintTop_toTopOf="@+id/winMessage2"
+        app:srcCompat="@drawable/confetti" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageView9"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="@+id/winMessage"
+        android:scaleX="-1"
+        app:layout_constraintBottom_toBottomOf="@+id/winMessage2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/winMessage"
-        app:srcCompat="@drawable/seekpng_com_cute_puppy_png_853146" />
+        app:layout_constraintTop_toTopOf="@+id/winMessage2"
+        app:srcCompat="@drawable/confetti" />
 
     <TextView
-        android:id="@+id/winMessage"
+        android:id="@+id/winMessage2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Congratulations! You found all of my puppies!"
+        android:text="@string/congratulations_you_have_set_a_new_best_score"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/imageView9"
+        app:layout_constraintStart_toEndOf="@+id/imageView8"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

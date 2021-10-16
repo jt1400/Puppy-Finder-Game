@@ -33,11 +33,12 @@
         <a href="https://freepngimg.com/png/33836-golden-retriever-puppy-file">https://freepngimg.com/png/33836-golden-retriever-puppy-file</a>\n
         Meows Font\n
         <a href="https://www.fontspace.com/meows-font-f48581">https://www.fontspace.com/meows-font-f48581</a>\n
-
     </string>
 
     <string name="puppy_seeker">Puppy Seeker</string>
     <string name="authors">Authors</string>
     <string name="resources">Resources</string>
     <string name="reset">RESET</string>
+    <string name="congratulations_you_found_all_of_my_puppies">Congratulations! You found all of my puppies!</string>
+    <string name="congratulations_you_have_set_a_new_best_score">Congratulations! You have set a new best score!</string>
 </resources>

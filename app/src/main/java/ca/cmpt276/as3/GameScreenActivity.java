@@ -2,6 +2,7 @@ package ca.cmpt276.as3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.core.app.NotificationCompatSideChannelService;
 import androidx.fragment.app.FragmentManager;
 import ca.cmpt276.as3.model.Game;
 import ca.cmpt276.as3.model.GameOption;
@@ -190,10 +191,17 @@ public class GameScreenActivity extends AppCompatActivity {
 
             if(game.getNumPuppiesFound() == gameOption.getNumPuppy())
             {
-                gameOption.setHighScore(game.getNumOfScans());
+// TODO: MAKE GOOD MESSAGE. RENAME BEST SCORE FRAGMENT. 
+                String winMes = "Congrats! You found all my puppies!";
+                if(gameOption.isNewHighScore(game.getNumOfScans()))
+                {
+                    winMes = "NEW GAME RECORD";
+                }
                 FragmentManager manager = getSupportFragmentManager();
-                WinDialogFragment dialog = new WinDialogFragment();
-                dialog.show(manager,"WinDialog");
+                BestScoreDialogFragment dialog = new BestScoreDialogFragment(winMes);
+                dialog.show(manager, "BestScoreDialog");
+
+                gameOption.setHighScore(game.getNumOfScans());
             }
         }
         else
