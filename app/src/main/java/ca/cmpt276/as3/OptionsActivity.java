@@ -1,15 +1,20 @@
 package ca.cmpt276.as3;
 
+import androidx.annotation.ChecksSdkIntAtLeast;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import ca.cmpt276.as3.model.GameOption;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import static java.lang.reflect.Array.getInt;
 
@@ -30,6 +35,7 @@ public class OptionsActivity extends AppCompatActivity {
 
         createRadioButtonsForNumPuppies();
         createRadioButtonsForBoardSize();
+        setUpResetButton();
         gameOption = GameOption.getInstance();
     }
 
@@ -123,5 +129,34 @@ public class OptionsActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(context, OptionsActivity.class);
         return intent;
+    }
+
+    private void setUpResetButton()
+    {
+        Button buttonReset = findViewById(R.id.buttonResetScores);
+        buttonReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(OptionsActivity.this);
+                builder.setMessage("Are you sure you want to reset all game scores?");
+                builder.setPositiveButton("RESET", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        gameOption.resetScores();
+                        Toast.makeText(OptionsActivity.this, "All scores have been reset!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //DO NOTHING
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
     }
 }

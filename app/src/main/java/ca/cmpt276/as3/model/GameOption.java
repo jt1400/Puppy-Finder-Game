@@ -14,7 +14,6 @@ public class GameOption {
     private static GameOption instance;
     private int[][] highScores;
     private int[][] times_game_played;
-    private int totalGamesPlayed;
     private int[] config;
 
     private GameOption(){
@@ -23,6 +22,22 @@ public class GameOption {
         numPuppy = 6;
 
         highScores = new int[3][4];
+        times_game_played = new int[3][4];
+        resetScores();
+
+        config = new int[2];
+        setConfig();
+    }
+
+    public static GameOption getInstance(){
+        if (instance == null){
+            instance = new GameOption();
+        }
+        return instance;
+    }
+
+    public void resetScores()
+    {
         for(int row=0; row < 3; row++)
         {
             for(int col=0; col < 4; col++)
@@ -31,7 +46,6 @@ public class GameOption {
             }
         }
 
-        times_game_played = new int[3][4];
         for(int row=0; row < 3; row++)
         {
             for(int col=0; col < 4; col++)
@@ -39,18 +53,6 @@ public class GameOption {
                 times_game_played[row][col] = 0;
             }
         }
-
-        config = new int[2];
-        setConfig();
-
-        totalGamesPlayed = 0;
-    }
-
-    public static GameOption getInstance(){
-        if (instance == null){
-            instance = new GameOption();
-        }
-        return instance;
     }
 
     private void setConfig() {

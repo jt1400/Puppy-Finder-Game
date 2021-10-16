@@ -51,6 +51,13 @@ public class GameScreenActivity extends AppCompatActivity {
         displayGameHistory();
     }
 
+    @Override
+    protected void onStop() {
+
+        super.onStop();
+    }
+
+
     private void displayGameHistory() {
         TextView tvtimes_game_played = findViewById(R.id.textViewTimesPlayed);
         tvtimes_game_played.setText("Number of games played: " + gameOption.getTimesPlayed());
