@@ -18,6 +18,11 @@ import android.widget.Toast;
 
 import static java.lang.reflect.Array.getInt;
 
+/**
+ * OptionsActivity class provides a screen for user to select game configurations.
+ * In this activity, user can select game board size and total numbers of puppies to be found.
+ * This activity also saves these configuration values into GameOption instance and SharedPreferences to be used across the app.
+ */
 public class OptionsActivity extends AppCompatActivity {
 
     public static final String APP_PREFERENCES = "AppPreferences";

@@ -14,6 +14,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+/**
+ * WelcomeActivity provides a welcome screen to user when user first launches the application.
+ * This activity features a video of a puppy running, the application title, the authors' names, and a Skip button for user to skip the video animation.
+ */
 public class WelcomeActivity extends AppCompatActivity {
 
     @Override
@@ -26,7 +30,6 @@ public class WelcomeActivity extends AppCompatActivity {
         setupPuppyVideo();
         setupSKipButton();
         setupTitleAnimation();
-
     }
 
     private void setupTitleAnimation() {

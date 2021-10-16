@@ -2,6 +2,14 @@ package ca.cmpt276.as3.model;
 
 import java.util.Random;
 
+/**
+ * Game class represents a game with a configuration of number of rows, columns, and puppies to be found.
+ * Each game's configuration will be set based on the GameOption instance.
+ * Game class randomly generates the positions of the hidden puppies across the rows and columns in the game board.
+ * This class stores the number of puppies user has found, and number of scans user has used.
+ * This class keeps track of all the tiles (cells) on the board to check if a tile has been scanned, or if a tile contains a hidden puppy.
+ * It can also perform scanning across the rows and columns to check for the number of hidden puppy.
+ */
 public class Game {
     private final int NUM_ROWS;
     private final int NUM_COLS;

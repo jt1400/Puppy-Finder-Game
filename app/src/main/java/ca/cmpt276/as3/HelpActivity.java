@@ -8,6 +8,11 @@ import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
 
+/**
+ * HelpActivity provides the Help screen to user.
+ * This class informs user about game instructions, authors,
+ * and lists all the resources (hyperlinks) that were used in this application.
+ */
 public class HelpActivity extends AppCompatActivity {
 
     @Override

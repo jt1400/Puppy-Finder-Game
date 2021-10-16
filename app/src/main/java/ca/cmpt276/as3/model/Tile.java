@@ -1,5 +1,10 @@
 package ca.cmpt276.as3.model;
 
+/**
+ * Tile class represents a tile (or a cell) inside the game board.
+ * Tile class contains information about a tile: whether a tile contains a hidden puppy, whether puppy have been revealed, and if the tile itself has been scanned.
+ * This class also stores the scan value of how many hidden puppies are in its row and column.
+ */
 public class Tile {
     private boolean containPuppy;
     private boolean puppyRevealed;

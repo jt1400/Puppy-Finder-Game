@@ -10,9 +10,15 @@ import android.widget.Button;
 
 import ca.cmpt276.as3.model.GameOption;
 
+/**
+ * MainMenu activity provides the menu for user to navigate inside the application.
+ * This activity contains three buttons: Play Game, Options, and Help.
+ * Clicking Play game button takes user to the Game Screen activity to play the game right away.
+ * Clicking Options button takes user to the settings of game configuration.
+ * Clicking Help button takes user to game instructions, authors, and resources.
+ */
 public class MainMenu extends AppCompatActivity {
     private GameOption gameOption;
-    public static final String APP_PREFERENCES = "AppPreferences";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

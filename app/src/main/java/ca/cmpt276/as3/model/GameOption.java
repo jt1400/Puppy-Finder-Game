@@ -2,6 +2,11 @@ package ca.cmpt276.as3.model;
 
 import com.google.gson.Gson;
 
+/**
+ * GameOption is a singleton class that determines the number of rows, columns, and puppies a game will have.
+ * GameOption class stores these configuration values (rows, columns, puppies) for the game board, and when an instance of GameOption is passed onto the Game constructor, a game will be constructed based on these value.
+ * This class also stores number of games played and the highest score for each configuration.
+ */
 public class GameOption {
     public static final int BOARD_SIZE_4X6 = 0;
     public static final int BOARD_SIZE_5X10 = 1;
@@ -156,7 +161,6 @@ public class GameOption {
             Gson gson = new Gson();
             highScores = gson.fromJson(highScoresJson, int[][].class);
         }
-
     }
 
     public void convertTimesPlayedFromJson(String timesPlayedJson)
