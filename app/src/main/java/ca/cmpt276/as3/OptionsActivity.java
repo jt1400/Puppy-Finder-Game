@@ -139,7 +139,7 @@ public class OptionsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(OptionsActivity.this);
                 builder.setMessage("Are you sure you want to reset all game scores?");
-                builder.setPositiveButton("RESET", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(R.string.reset, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         gameOption.resetScores();

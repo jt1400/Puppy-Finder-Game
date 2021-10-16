@@ -8,6 +8,7 @@ import ca.cmpt276.as3.model.GameOption;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -26,6 +27,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import org.w3c.dom.Text;
 
 import java.util.Arrays;
@@ -35,6 +38,9 @@ public class GameScreenActivity extends AppCompatActivity {
     GameOption gameOption;
     Game game;
     Button[][] buttons;
+    public static final String APP_PREFERENCES = "AppPreferences";
+    public static final String HIGH_SCORES = "high scores";
+    public static final String TIMES_GAME_PLAYED = "times game played";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +59,33 @@ public class GameScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-
+        saveGameRecords();
         super.onStop();
     }
 
+    private void saveGameRecords()
+    {
+        String highScoresJson = gameOption.convertHighScoresToJson();
+        String timesPlayedJson = gameOption.convertTimesGamePlayedToJson();
+
+        SharedPreferences refs = this.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences.Editor editor = refs.edit();
+        editor.putString(HIGH_SCORES, highScoresJson);
+        editor.putString(TIMES_GAME_PLAYED, timesPlayedJson);
+        editor.apply();
+    }
+
+    public static String getHighScoresFromSharedPreferences(Context context)
+    {
+        SharedPreferences refs = context.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
+        return refs.getString(HIGH_SCORES, null);
+    }
+
+    public static String getTimesGamePlayedFromSharedPreferences(Context context)
+    {
+        SharedPreferences refs = context.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
+        return refs.getString(TIMES_GAME_PLAYED, null);
+    }
 
     private void displayGameHistory() {
         TextView tvtimes_game_played = findViewById(R.id.textViewTimesPlayed);

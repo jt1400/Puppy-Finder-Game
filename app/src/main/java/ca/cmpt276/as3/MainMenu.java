@@ -20,6 +20,10 @@ public class MainMenu extends AppCompatActivity {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         setContentView(R.layout.activity_main_menu);
 
+        gameOption = GameOption.getInstance();
+        loadGameConfiguration();
+        loadGameRecords();
+
         setUpButtonPlayGame();
         setUpButtonOptions();
         setUpButtonHelp();
@@ -29,9 +33,21 @@ public class MainMenu extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         gameOption = GameOption.getInstance();
+    }
+
+    private void loadGameConfiguration()
+    {
         gameOption.setNumPuppy(OptionsActivity.getNumPuppies(this));
         gameOption.setNumRow(OptionsActivity.getBoardSizeRow(this));
         gameOption.setNumCol(OptionsActivity.getBoardSizeCol(this));
+    }
+
+    private void loadGameRecords()
+    {
+        String highScores = GameScreenActivity.getHighScoresFromSharedPreferences(MainMenu.this);
+        gameOption.convertHighScoresFromJson(highScores);
+        String timesPlayed = GameScreenActivity.getTimesGamePlayedFromSharedPreferences(MainMenu.this);
+        gameOption.convertTimesPlayedFromJson(timesPlayed);
     }
 
     public static Intent makeIntent(Context context)

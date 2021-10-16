@@ -1,5 +1,7 @@
 package ca.cmpt276.as3.model;
 
+import com.google.gson.Gson;
+
 public class GameOption {
     public static final int BOARD_SIZE_4X6 = 0;
     public static final int BOARD_SIZE_5X10 = 1;
@@ -128,5 +130,35 @@ public class GameOption {
     public int getTimesPlayed()
     {
         return times_game_played[config[0]][config[1]];
+    }
+
+    public String convertHighScoresToJson()
+    {
+        Gson gson = new Gson();
+        return gson.toJson(highScores);
+    }
+
+    public String convertTimesGamePlayedToJson()
+    {
+        Gson gson = new Gson();
+        return gson.toJson(times_game_played);
+    }
+
+    public void convertHighScoresFromJson(String highScoresJson)
+    {
+        if(highScoresJson != null)
+        {
+            Gson gson = new Gson();
+            highScores = gson.fromJson(highScoresJson, int[][].class);
+        }
+
+    }
+
+    public void convertTimesPlayedFromJson(String timesPlayedJson)
+    {
+        if(timesPlayedJson != null) {
+            Gson gson = new Gson();
+            times_game_played = gson.fromJson(timesPlayedJson, int[][].class);
+        }
     }
 }
