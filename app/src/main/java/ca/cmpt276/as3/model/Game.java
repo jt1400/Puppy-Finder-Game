@@ -80,7 +80,18 @@ public class Game {
         return tiles[row][col].isScanned();
     }
 
-    public int scanTile(int row, int col){
+    public int getScanValueAtTile(int row, int col)
+    {
+        return tiles[row][col].getScanValue();
+    }
+
+    public void decrementScanValueAtTile(int row, int col)
+    {
+        tiles[row][col].decrementScanValue();
+    }
+
+
+    public void scanTile(int row, int col){
         numOfScans++;
         tiles[row][col].setScanned(true);
 
@@ -98,7 +109,7 @@ public class Game {
                 counter++;
             }
         }
-        return counter;
+        tiles[row][col].setScanValue(counter);
     }
 
     public int getNumPuppiesFound()

@@ -26,13 +26,15 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.Arrays;
 import java.util.Locale;
 
 public class GameScreenActivity extends AppCompatActivity {
     GameOption gameOption;
     Game game;
-    Button buttons[][];
+    Button[][] buttons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,21 @@ public class GameScreenActivity extends AppCompatActivity {
 
         populateTiles();
         updateGameStatus();
+        displayGameHistory();
+    }
+
+    private void displayGameHistory() {
+        TextView tvtimes_game_played = findViewById(R.id.textViewTimesPlayed);
+        tvtimes_game_played.setText("Number of games played: " + gameOption.getTimesPlayed());
+
+        TextView tv_high_score= findViewById(R.id.textViewHighScore);
+        int highScore =  gameOption.getHighScore();
+        if(highScore == 91) {
+            tv_high_score.setText("No best score recorded.");
+        }
+        else {
+            tv_high_score.setText("Best score: " + highScore);
+        }
     }
 
     private void populateTiles() {
@@ -121,10 +138,8 @@ public class GameScreenActivity extends AppCompatActivity {
             {
                 if(game.isTileScanned(row, i))
                 {
-                    String countAsString = buttons[row][i].getText().toString();
-                    int countAsInt = Integer.parseInt(countAsString);
-                    countAsInt--;
-                    buttons[row][i].setText(String.format(Locale.getDefault(), "%d", countAsInt));
+                    game.decrementScanValueAtTile(row, i);
+                    buttons[row][i].setText(String.format(Locale.getDefault(), "%d", game.getScanValueAtTile(row, i)));
                 }
             }
 
@@ -132,15 +147,14 @@ public class GameScreenActivity extends AppCompatActivity {
             {
                 if(game.isTileScanned(i, col))
                 {
-                    String countAsString = buttons[i][col].getText().toString();
-                    int countAsInt = Integer.parseInt(countAsString);
-                    countAsInt--;
-                    buttons[i][col].setText(String.format(Locale.getDefault(), "%d", countAsInt));
+                    game.decrementScanValueAtTile(i, col);
+                    buttons[i][col].setText(String.format(Locale.getDefault(), "%d", game.getScanValueAtTile(i, col)));
                 }
             }
 
             if(game.getNumPuppiesFound() == gameOption.getNumPuppy())
             {
+                gameOption.setHighScore(game.getNumOfScans());
                 FragmentManager manager = getSupportFragmentManager();
                 WinDialogFragment dialog = new WinDialogFragment();
                 dialog.show(manager,"WinDialog");
@@ -163,13 +177,13 @@ public class GameScreenActivity extends AppCompatActivity {
                 int[] distance = {row, gameOption.getNumRow() - row - 1, col, gameOption.getNumCol() - col - 1};
                 int max = Arrays.stream(distance).max().getAsInt();
 
-                int scanResult = game.scanTile(row, col);
+                game.scanTile(row, col);
 
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        buttons[row][col].setText(String.format(Locale.getDefault(), "%d", scanResult));
+                        buttons[row][col].setText("" + game.getScanValueAtTile(row, col));
                     }
                 }, (max+1) * 200L + 300L);
             }

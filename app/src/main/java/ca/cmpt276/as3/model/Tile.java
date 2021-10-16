@@ -4,11 +4,13 @@ public class Tile {
     private boolean containPuppy;
     private boolean puppyRevealed;
     private boolean scanned;
+    private int scanValue;
 
     public Tile() {
         containPuppy = false;
         puppyRevealed = false;
         scanned = false;
+        scanValue = -1;
     }
 
     public boolean isContainPuppy() {
@@ -33,5 +35,20 @@ public class Tile {
 
     public void setScanned(boolean scanned) {
         this.scanned = scanned;
+    }
+
+    public void decrementScanValue()
+    {
+        scanValue--;
+    }
+
+    public void setScanValue(int num)
+    {
+        scanValue = num;
+    }
+
+    public int getScanValue()
+    {
+        return scanValue;
     }
 }
