@@ -30,6 +30,12 @@ import java.util.Locale;
 import ca.cmpt276.as3.model.Game;
 import ca.cmpt276.as3.model.GameOption;
 
+/**
+ * GameScreenActivity class provides an interactive game board for user to play the game.
+ * This activity class displays the board filled with cells, it shows a puppy image if user clicks on a cell with a hidden puppy,
+ * it shows the scan result if user clicks on a cell with no hidden puppy.
+ * This class also displays the number of puppies found, number of scans used, number of games played and best score for this game configuration.
+ */
 public class GameScreenActivity extends AppCompatActivity {
     GameOption gameOption;
     Game game;

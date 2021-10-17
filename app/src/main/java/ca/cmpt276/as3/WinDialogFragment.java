@@ -16,6 +16,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+/**
+ * WinDialogFragment class supports the creation of the dialog to inform user on winning the game.
+ * This class inflates the win_dialog.xml file to make a nice congratulating dialog featuring confetti icons.
+ * This class also adjust the congratulations message accordingly to when user wins the game without breaking best score record
+ * versus when user wins the game & breaks best score record.
+ */
 public class WinDialogFragment extends AppCompatDialogFragment{
     String winMessage;
     public WinDialogFragment(String winMes)

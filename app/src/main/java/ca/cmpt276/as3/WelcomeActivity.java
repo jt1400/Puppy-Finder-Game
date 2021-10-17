@@ -83,6 +83,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 button.animate().alpha(1f).translationYBy(-50).setDuration(1000);
             }
         }, 2000);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

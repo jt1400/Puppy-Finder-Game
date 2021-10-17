@@ -15,8 +15,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+/**
+ * OptionsActivity class provides a screen for user to change game settings and configurations.
+ * This class allows user to select the size of the game board and the total number of puppies that user wants to find.
+ * This class saves these configuration values into GameOption instance and SharedPreferences to be used across the app.
+ * This class also has a "Reset Scores" button so user can reset all games played to 0 and all best score records.
+ */
 public class OptionsActivity extends AppCompatActivity {
-
     public static final String APP_PREFERENCES = "AppPreferences";
     public static final String ROW_SIZE = "Row size";
     public static final String COL_SIZE = "Col size";
