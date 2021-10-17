@@ -30,27 +30,6 @@ public class Game {
         generateRandomPuppiesLocation();
     }
 
-    public Game(int NUM_ROWS, int NUM_COLS, int NUM_PUPPIES) {
-        this.NUM_ROWS = NUM_ROWS;
-        this.NUM_COLS = NUM_COLS;
-        this.NUM_PUPPIES = NUM_PUPPIES;
-        numPuppiesFound = 0;
-        numOfScans = 0;
-        initializeTilesMatrix();
-        generateRandomPuppiesLocation();
-    }
-
-    private void initializeTilesMatrix(){
-        tiles = new Tile[NUM_ROWS][NUM_COLS];
-        for(int row=0; row < NUM_ROWS; row++)
-        {
-            for(int col=0; col < NUM_COLS; col++)
-            {
-                tiles[row][col] = new Tile();
-            }
-        }
-    }
-
     private void generateRandomPuppiesLocation() {
         Random rand = new Random();
         for(int i=1; i <= NUM_PUPPIES; i++) {
@@ -63,6 +42,17 @@ public class Game {
             }
             else {
                 tiles[randomRow][randomCol].setContainPuppy(true);
+            }
+        }
+    }
+
+    private void initializeTilesMatrix(){
+        tiles = new Tile[NUM_ROWS][NUM_COLS];
+        for(int row=0; row < NUM_ROWS; row++)
+        {
+            for(int col=0; col < NUM_COLS; col++)
+            {
+                tiles[row][col] = new Tile();
             }
         }
     }

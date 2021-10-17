@@ -21,7 +21,7 @@ public class GameOption {
     private static GameOption instance;
     private int[][] highScores;
     private int[][] times_game_played;
-    private int[] config;
+    private final int[] config;
 
     private GameOption(){
         numRow = 4;
@@ -36,11 +36,72 @@ public class GameOption {
         setConfig();
     }
 
+    public String convertHighScoresToJson()
+    {
+        Gson gson = new Gson();
+        return gson.toJson(highScores);
+    }
+
+    public String convertTimesGamePlayedToJson()
+    {
+        Gson gson = new Gson();
+        return gson.toJson(times_game_played);
+    }
+
+    public void convertHighScoresFromJson(String highScoresJson)
+    {
+        if(highScoresJson != null)
+        {
+            Gson gson = new Gson();
+            highScores = gson.fromJson(highScoresJson, int[][].class);
+        }
+    }
+
+    public void convertTimesPlayedFromJson(String timesPlayedJson)
+    {
+        if(timesPlayedJson != null) {
+            Gson gson = new Gson();
+            times_game_played = gson.fromJson(timesPlayedJson, int[][].class);
+        }
+    }
+
     public static GameOption getInstance(){
         if (instance == null){
             instance = new GameOption();
         }
         return instance;
+    }
+
+    public int getNumRow() {
+        return numRow;
+    }
+
+    public int getNumCol() {
+        return numCol;
+    }
+
+    public int getNumPuppy() {
+        return numPuppy;
+    }
+
+    public int getHighScore()
+    {
+        return highScores[config[0]][config[1]];
+    }
+
+    public int getTimesPlayed()
+    {
+        return times_game_played[config[0]][config[1]];
+    }
+
+    public void incrementTimesGamePlayed()
+    {
+        times_game_played[config[0]][config[1]]++;
+    }
+
+    public boolean isNewHighScore(int newScore)
+    {
+        return newScore < highScores[config[0]][config[1]];
     }
 
     public void resetScores()
@@ -59,6 +120,27 @@ public class GameOption {
             {
                 times_game_played[row][col] = 0;
             }
+        }
+    }
+
+    public void setNumPuppy(int numPuppy) {
+        this.numPuppy = numPuppy;
+        setConfig();
+    }
+
+    public void setNumRow(int numRow) {
+        this.numRow = numRow;
+        setConfig();
+    }
+
+    public void setNumCol(int numCol) {
+        this.numCol = numCol;
+        setConfig();
+    }
+
+    public void setHighScore(int newScore) {
+        if(newScore < highScores[config[0]][config[1]]) {
+            highScores[config[0]][config[1]] = newScore;
         }
     }
 
@@ -89,85 +171,6 @@ public class GameOption {
                 config[1] = NUM_PUPPIES_20;
                 break;
 
-        }
-    }
-
-    public int getNumRow() {
-        return numRow;
-    }
-
-    public void setNumRow(int numRow) {
-        this.numRow = numRow;
-        setConfig();
-    }
-
-    public int getNumCol() {
-        return numCol;
-    }
-
-    public void setNumCol(int numCol) {
-        this.numCol = numCol;
-        setConfig();
-    }
-
-    public int getNumPuppy() {
-        return numPuppy;
-    }
-
-    public void setNumPuppy(int numPuppy) {
-        this.numPuppy = numPuppy;
-        setConfig();
-    }
-
-    public void setHighScore(int newScore) {
-        times_game_played[config[0]][config[1]]++;
-
-        if(newScore < highScores[config[0]][config[1]]) {
-            highScores[config[0]][config[1]] = newScore;
-        }
-    }
-
-    public boolean isNewHighScore(int newScore)
-    {
-        return newScore < highScores[config[0]][config[1]];
-    }
-
-    public int getHighScore()
-    {
-        return highScores[config[0]][config[1]];
-    }
-
-    public int getTimesPlayed()
-    {
-        return times_game_played[config[0]][config[1]];
-    }
-
-    public String convertHighScoresToJson()
-    {
-        Gson gson = new Gson();
-        return gson.toJson(highScores);
-    }
-
-    public String convertTimesGamePlayedToJson()
-    {
-        Gson gson = new Gson();
-        return gson.toJson(times_game_played);
-    }
-
-    public void convertHighScoresFromJson(String highScoresJson)
-    {
-        if(highScoresJson != null)
-        {
-            Gson gson = new Gson();
-            highScores = gson.fromJson(highScoresJson, int[][].class);
-        }
-    }
-
-    public void convertTimesPlayedFromJson(String timesPlayedJson)
-    {
-        if(timesPlayedJson != null) {
-            Gson gson = new Gson();
-            times_game_played = gson.fromJson(timesPlayedJson, int[][].class);
         }
     }
 }

@@ -53,6 +53,8 @@ public class GameScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_screen);
 
         gameOption = GameOption.getInstance();
+        gameOption.incrementTimesGamePlayed();
+
         game = new Game(gameOption);
         buttons = new Button[gameOption.getNumRow()][gameOption.getNumCol()];
 
@@ -67,16 +69,19 @@ public class GameScreenActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    private void saveGameRecords()
-    {
-        String highScoresJson = gameOption.convertHighScoresToJson();
-        String timesPlayedJson = gameOption.convertTimesGamePlayedToJson();
+    private void displayGameHistory() {
+        TextView tvTimesGamePlayed = findViewById(R.id.textViewTimesPlayed);
+        tvTimesGamePlayed.setText(String.format(Locale.CANADA,"%s %d", getString(R.string.number_of_games_started)
+                , gameOption.getTimesPlayed()));
 
-        SharedPreferences refs = this.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
-        SharedPreferences.Editor editor = refs.edit();
-        editor.putString(HIGH_SCORES, highScoresJson);
-        editor.putString(TIMES_GAME_PLAYED, timesPlayedJson);
-        editor.apply();
+        TextView tv_high_score= findViewById(R.id.textViewHighScore);
+        int highScore =  gameOption.getHighScore();
+        if(highScore == 91) {
+            tv_high_score.setText(R.string.no_best_score_recorded);
+        }
+        else {
+            tv_high_score.setText(String.format(Locale.CANADA, "%s%d", getString(R.string.best_score), highScore));
+        }
     }
 
     public static String getHighScoresFromSharedPreferences(Context context)
@@ -91,19 +96,23 @@ public class GameScreenActivity extends AppCompatActivity {
         return refs.getString(TIMES_GAME_PLAYED, null);
     }
 
-    private void displayGameHistory() {
-        TextView tvTimesGamePlayed = findViewById(R.id.textViewTimesPlayed);
-        tvTimesGamePlayed.setText(String.format(Locale.CANADA,"%s%d", getString(R.string.number_of_games_played)
-                , gameOption.getTimesPlayed()));
+    private void lockButtonSize() {
+        for(int r=0; r < gameOption.getNumRow(); r++) {
+            for(int c=0; c < gameOption.getNumCol(); c++) {
+                Button button = buttons[r][c];
+                int width = button.getWidth();
+                button.setMinWidth(width);
+                button.setMaxWidth(width);
 
-        TextView tv_high_score= findViewById(R.id.textViewHighScore);
-        int highScore =  gameOption.getHighScore();
-        if(highScore == 91) {
-            tv_high_score.setText(R.string.no_best_score_recorded);
+                int height = button.getHeight();
+                button.setMinHeight(height);
+                button.setMaxHeight(height);
+            }
         }
-        else {
-            tv_high_score.setText(String.format(Locale.CANADA, "%s%d", getString(R.string.best_score), highScore));
-        }
+    }
+
+    public static Intent makeIntent(Context context) {
+        return new Intent(context, GameScreenActivity.class);
     }
 
     private void populateTiles() {
@@ -140,6 +149,79 @@ public class GameScreenActivity extends AppCompatActivity {
                 tableRow.addView(tile);
                 buttons[row][col] = tile;
             }
+        }
+    }
+
+    private void playSoundEffect(int file_name) {
+        final MediaPlayer mp = MediaPlayer.create(this, file_name);
+        mp.start();
+    }
+
+    private void saveGameRecords()
+    {
+        String highScoresJson = gameOption.convertHighScoresToJson();
+        String timesPlayedJson = gameOption.convertTimesGamePlayedToJson();
+
+        SharedPreferences refs = this.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences.Editor editor = refs.edit();
+        editor.putString(HIGH_SCORES, highScoresJson);
+        editor.putString(TIMES_GAME_PLAYED, timesPlayedJson);
+        editor.apply();
+    }
+
+    private void startScanningAnimation(int row, int col) {
+        boolean top = true;
+        boolean right = true;
+        boolean bottom = true;
+        boolean left = true;
+        int i = 0;
+
+        while (top || right || bottom || left) {
+            final int k = i;
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if(col - k >= 0) {
+                        shakeButton(row, col -k);
+                    }
+                    if(row + k <= gameOption.getNumRow() - 1) {
+                        shakeButton(row + k, col);
+                    }
+                    if (col + k <= gameOption.getNumCol() - 1) {
+                        shakeButton(row, col + k);
+                    }
+                    if (row - k >= 0) {
+                        shakeButton(row - k, col);
+                    }
+                }
+            }, 150L * (k+1));
+
+            if (col - i < 0) {
+                top = false;
+            }
+
+            if (row + i > gameOption.getNumRow() - 1) {
+                right = false;
+            }
+
+            if (col + i > gameOption.getNumCol() - 1) {
+                bottom = false;
+            }
+
+            if (row - i < 0) {
+                left = false;
+            }
+            i++;
+
+        }
+    }
+
+    private void shakeButton(int row, int col){
+        Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+        if (!game.checkIfPuppyRevealed(row, col)) {
+            buttons[row][col].startAnimation(shake);
         }
     }
 
@@ -210,11 +292,23 @@ public class GameScreenActivity extends AppCompatActivity {
         updateGameStatus();
     }
 
-    private void playSoundEffect(int file_name) {
-        final MediaPlayer mp = MediaPlayer.create(this, file_name);
-        mp.start();
+    private void updateCounts(int row, int col) {
+        if(game.isTileScanned(row, col)) {
+            game.decrementScanValueAtTile(row, col);
+            buttons[row][col].setText(String.format(Locale.getDefault(), "%d", game.getScanValueAtTile(row, col)));
+        }
     }
 
+    private void updateGameStatus() {
+        TextView tvTotalPuppies = findViewById(R.id.textViewTotalPuppies);
+        String puppy_status = "Found " + game.getNumPuppiesFound() + " out of " + gameOption.getNumPuppy() + " puppies.";
+        tvTotalPuppies.setText(puppy_status);
+
+        TextView tvNumScans = findViewById(R.id.textViewNumOfScans);
+        String num_scans = getString(R.string.number_of_scans_used);
+        num_scans = num_scans.concat(String.format(Locale.getDefault()," %d", game.getNumOfScans()));
+        tvNumScans.setText(num_scans);
+    }
 
     private void vibrate(long[] pattern){
         //add vibration
@@ -228,99 +322,5 @@ public class GameScreenActivity extends AppCompatActivity {
             // deprecated in android 26
             v.vibrate(pattern, -1);
         }
-    }
-
-    private void updateCounts(int row, int col) {
-        if(game.isTileScanned(row, col)) {
-            game.decrementScanValueAtTile(row, col);
-            buttons[row][col].setText(String.format(Locale.getDefault(), "%d", game.getScanValueAtTile(row, col)));
-        }
-    }
-
-    private void startScanningAnimation(int row, int col) {
-        boolean top = true;
-        boolean right = true;
-        boolean bottom = true;
-        boolean left = true;
-        int i = 0;
-
-        while (top || right || bottom || left) {
-            final int k = i;
-
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if(col - k >= 0) {
-                        shakeButton(row, col -k);
-                    }
-                    if(row + k <= gameOption.getNumRow() - 1) {
-                        shakeButton(row + k, col);
-                    }
-                    if (col + k <= gameOption.getNumCol() - 1) {
-                        shakeButton(row, col + k);
-                    }
-                    if (row - k >= 0) {
-                        shakeButton(row - k, col);
-                    }
-                }
-            }, 150L * (k+1));
-
-            if (col - i < 0) {
-                top = false;
-            }
-
-            if (row + i > gameOption.getNumRow() - 1) {
-                right = false;
-            }
-
-            if (col + i > gameOption.getNumCol() - 1) {
-                bottom = false;
-            }
-
-            if (row - i < 0) {
-                left = false;
-            }
-            i++;
-
-        }
-    }
-
-    private void shakeButton(int row, int col){
-        Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
-        if (!game.checkIfPuppyRevealed(row, col)) {
-            buttons[row][col].startAnimation(shake);
-        }
-    }
-
-    private void lockButtonSize() {
-        //lock button size
-        for(int r=0; r < gameOption.getNumRow(); r++) {
-            for(int c=0; c < gameOption.getNumCol(); c++) {
-                Button button = buttons[r][c];
-                int width = button.getWidth();
-                button.setMinWidth(width);
-                button.setMaxWidth(width);
-
-                int height = button.getHeight();
-                button.setMinHeight(height);
-                button.setMaxHeight(height);
-            }
-        }
-    }
-
-    public static Intent makeIntent(Context context) {
-        return new Intent(context, GameScreenActivity.class);
-    }
-
-    private void updateGameStatus() {
-        TextView tvTotalPuppies = findViewById(R.id.textViewTotalPuppies);
-        String puppy_status = "Found " + game.getNumPuppiesFound() + " out of " + gameOption.getNumPuppy() + " puppies.";
-        tvTotalPuppies.setText(puppy_status);
-
-        TextView tvNumScans = findViewById(R.id.textViewNumOfScans);
-        String num_scans = getString(R.string.number_of_scans_used);
-        num_scans = num_scans.concat(String.format(Locale.getDefault()," %d", game.getNumOfScans()));
-        tvNumScans.setText(num_scans);
     }
 }
