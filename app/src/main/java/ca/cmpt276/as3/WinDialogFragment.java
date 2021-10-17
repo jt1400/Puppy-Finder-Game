@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-
 public class WinDialogFragment extends AppCompatDialogFragment{
     String winMessage;
     public WinDialogFragment(String winMes)

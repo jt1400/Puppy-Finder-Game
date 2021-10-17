@@ -12,7 +12,6 @@ import ca.cmpt276.as3.model.GameOption;
 
 public class MainMenu extends AppCompatActivity {
     private GameOption gameOption;
-    public static final String APP_PREFERENCES = "AppPreferences";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
