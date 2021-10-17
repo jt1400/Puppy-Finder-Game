@@ -37,6 +37,8 @@ public class GameScreenActivity extends AppCompatActivity {
     public static final String APP_PREFERENCES = "AppPreferences";
     public static final String HIGH_SCORES = "high scores";
     public static final String TIMES_GAME_PLAYED = "times game played";
+    public static final long[] PUPPY_FOUND_VIBRATION_PATTERN = new long[]{150,100, 200, 200, 150};
+    public static final long[] SCAN_VIBRATION_PATTERN = new long[]{0, 100, 10, 100, 10, 100, 10, 100, 10};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +87,8 @@ public class GameScreenActivity extends AppCompatActivity {
 
     private void displayGameHistory() {
         TextView tvtimes_game_played = findViewById(R.id.textViewTimesPlayed);
-        tvtimes_game_played.setText("Number of games played: " + gameOption.getTimesPlayed());
+        tvtimes_game_played.setText(String.format("%s%d", getString(R.string.number_of_games_played)
+                , gameOption.getTimesPlayed()));
 
         TextView tv_high_score= findViewById(R.id.textViewHighScore);
         int highScore =  gameOption.getHighScore();
@@ -139,23 +142,11 @@ public class GameScreenActivity extends AppCompatActivity {
 
         lockButtonSize();
 
-        if(game.checkForHiddenPuppy(row, col))
-        {
+        if(game.checkForHiddenPuppy(row, col)) {
             //play barking sound
-            final MediaPlayer mp = MediaPlayer.create(this, R.raw.short_bark);
-            mp.start();
+            playSoundEffect(R.raw.short_bark);
 
-            //add vibration
-            Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-            long[] pattern = {150,100, 200, 200, 150};
-
-            //vibrate for 500 ms
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                v.vibrate(VibrationEffect.createWaveform(pattern, -1));
-            }
-            else {
-                v.vibrate(pattern, -1);
-            }
+            vibrate(PUPPY_FOUND_VIBRATION_PATTERN);
 
             //scale image to button (only works with JellyBean)
             int newWidth = button.getWidth();
@@ -166,22 +157,12 @@ public class GameScreenActivity extends AppCompatActivity {
             button.setBackground(new BitmapDrawable(resource, scaledBitmap));
 
             //once we show the hidden puppy, we need to update the counts
-            for(int i=0; i < gameOption.getNumCol(); i++)
-            {
-                if(game.isTileScanned(row, i))
-                {
-                    game.decrementScanValueAtTile(row, i);
-                    buttons[row][i].setText(String.format(Locale.getDefault(), "%d", game.getScanValueAtTile(row, i)));
-                }
+            for(int i=0; i < gameOption.getNumCol(); i++) {
+                updateCounts(row, i);
             }
 
-            for(int i=0; i < gameOption.getNumRow(); i++)
-            {
-                if(game.isTileScanned(i, col))
-                {
-                    game.decrementScanValueAtTile(i, col);
-                    buttons[i][col].setText(String.format(Locale.getDefault(), "%d", game.getScanValueAtTile(i, col)));
-                }
+            for(int i=0; i < gameOption.getNumRow(); i++) {
+                updateCounts(i, col);
             }
 
             if(game.getNumPuppiesFound() == gameOption.getNumPuppy())
@@ -198,20 +179,11 @@ public class GameScreenActivity extends AppCompatActivity {
                 gameOption.setHighScore(game.getNumOfScans());
             }
         }
-        else
-        {
+        else {
             if(!game.isTileScanned(row, col)) {
-                final MediaPlayer mpWrongAnswer = MediaPlayer.create(this, R.raw.wrong_answer_sound_effect);
-                mpWrongAnswer.start();
+                playSoundEffect(R.raw.wrong_answer_sound_effect);
 
-                //add vibration
-                Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-                //vibrate for 500 ms
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    v.vibrate(VibrationEffect.createOneShot(400, 75));
-                } else {
-                    v.vibrate(400);
-                }
+                vibrate(SCAN_VIBRATION_PATTERN);
 
                 startScanningAnimation(row, col);
 
@@ -232,6 +204,33 @@ public class GameScreenActivity extends AppCompatActivity {
         updateGameStatus();
     }
 
+    private void playSoundEffect(int file_name) {
+        final MediaPlayer mp = MediaPlayer.create(this, file_name);
+        mp.start();
+    }
+
+
+    private void vibrate(long[] pattern){
+        //add vibration
+        Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+
+        //vibrate according pattern
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            v.vibrate(VibrationEffect.createWaveform(pattern, -1));
+        }
+        else {
+            // deprecated in android 26
+            v.vibrate(pattern, -1);
+        }
+    }
+
+    private void updateCounts(int row, int col) {
+        if(game.isTileScanned(row, col)) {
+            game.decrementScanValueAtTile(row, col);
+            buttons[row][col].setText(String.format(Locale.getDefault(), "%d", game.getScanValueAtTile(row, col)));
+        }
+    }
+
     private void startScanningAnimation(int row, int col) {
         boolean top = true;
         boolean right = true;
@@ -249,24 +248,16 @@ public class GameScreenActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     if(col - k >= 0) {
-                        if (!game.checkIfPuppyRevealed(row, col - k)) {
-                            buttons[row][col - k].startAnimation(shake);
-                        }
+                        shakeButton(row, col -k);
                     }
                     if(row + k <= gameOption.getNumRow() - 1) {
-                        if (!game.checkIfPuppyRevealed(row + k, col)) {
-                            buttons[row + k][col].startAnimation(shake);
-                        }
+                        shakeButton(row + k, col);
                     }
                     if (col + k <= gameOption.getNumCol() - 1) {
-                        if (!game.checkIfPuppyRevealed(row, col + k)) {
-                            buttons[row][col + k].startAnimation(shake);
-                        }
+                        shakeButton(row, col + k);
                     }
                     if (row - k >= 0) {
-                        if (!game.checkIfPuppyRevealed(row - k, col)) {
-                            buttons[row - k][col].startAnimation(shake);
-                        }
+                        shakeButton(row - k, col);
                     }
                 }
             }, 150L * (k+1));
@@ -291,13 +282,17 @@ public class GameScreenActivity extends AppCompatActivity {
         }
     }
 
-    private void lockButtonSize()
-    {
+    private void shakeButton(int row, int col){
+        Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
+        if (!game.checkIfPuppyRevealed(row, col)) {
+            buttons[row][col].startAnimation(shake);
+        }
+    }
+
+    private void lockButtonSize() {
         //lock button size
-        for(int r=0; r < gameOption.getNumRow(); r++)
-        {
-            for(int c=0; c < gameOption.getNumCol(); c++)
-            {
+        for(int r=0; r < gameOption.getNumRow(); r++) {
+            for(int c=0; c < gameOption.getNumCol(); c++) {
                 Button button = buttons[r][c];
                 int width = button.getWidth();
                 button.setMinWidth(width);
@@ -310,13 +305,11 @@ public class GameScreenActivity extends AppCompatActivity {
         }
     }
 
-    public static Intent makeIntent(Context context)
-    {
+    public static Intent makeIntent(Context context) {
         return new Intent(context, GameScreenActivity.class);
     }
 
-    private void updateGameStatus()
-    {
+    private void updateGameStatus() {
         TextView tvTotalPuppies = findViewById(R.id.textViewTotalPuppies);
         String puppy_status = "Found " + game.getNumPuppiesFound() + " out of " + gameOption.getNumPuppy() + " puppies.";
         tvTotalPuppies.setText(puppy_status);

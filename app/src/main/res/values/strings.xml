@@ -45,4 +45,5 @@
     <string name="congrats_you_have_set_new_best_score">CONGRATULATIONS! YOU HAVE SET A NEW BEST SCORE!</string>
     <string name="you_win">YOU WIN!</string>
     <string name="no_best_score_recorded">No best score recorded.</string>
+    <string name="number_of_games_played">\"Number of games played: \"</string>
 </resources>
