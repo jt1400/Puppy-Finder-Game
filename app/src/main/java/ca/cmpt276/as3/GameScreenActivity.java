@@ -53,6 +53,8 @@ public class GameScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_screen);
 
         gameOption = GameOption.getInstance();
+        gameOption.incrementTimesGamePlayed();
+
         game = new Game(gameOption);
         buttons = new Button[gameOption.getNumRow()][gameOption.getNumCol()];
 
@@ -93,7 +95,7 @@ public class GameScreenActivity extends AppCompatActivity {
 
     private void displayGameHistory() {
         TextView tvTimesGamePlayed = findViewById(R.id.textViewTimesPlayed);
-        tvTimesGamePlayed.setText(String.format(Locale.CANADA,"%s%d", getString(R.string.number_of_games_played)
+        tvTimesGamePlayed.setText(String.format(Locale.CANADA,"%s %d", getString(R.string.number_of_games_played)
                 , gameOption.getTimesPlayed()));
 
         TextView tv_high_score= findViewById(R.id.textViewHighScore);
@@ -294,7 +296,6 @@ public class GameScreenActivity extends AppCompatActivity {
     }
 
     private void lockButtonSize() {
-        //lock button size
         for(int r=0; r < gameOption.getNumRow(); r++) {
             for(int c=0; c < gameOption.getNumCol(); c++) {
                 Button button = buttons[r][c];

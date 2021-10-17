@@ -119,9 +119,12 @@ public class GameOption {
         setConfig();
     }
 
-    public void setHighScore(int newScore) {
+    public void incrementTimesGamePlayed()
+    {
         times_game_played[config[0]][config[1]]++;
+    }
 
+    public void setHighScore(int newScore) {
         if(newScore < highScores[config[0]][config[1]]) {
             highScores[config[0]][config[1]] = newScore;
         }
