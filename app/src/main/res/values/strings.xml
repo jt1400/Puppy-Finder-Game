@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">As3</string>
+    <string name="app_name">Where\'s My Puppy?</string>
     <string name="rows_by">%1$d rows by</string>
     <string name="columns">%1$d columns</string>
     <string name="puppies">%1$d puppies</string>
@@ -35,7 +35,7 @@
         <a href="https://www.fontspace.com/meows-font-f48581">https://www.fontspace.com/meows-font-f48581</a>\n
     </string>
 
-    <string name="puppy_seeker">Puppy Seeker</string>
+    <string name="puppy_seeker">Where\'s My Puppy</string>
     <string name="authors">Authors</string>
     <string name="resources">Resources</string>
     <string name="reset">RESET</string>
@@ -45,4 +45,5 @@
     <string name="congrats_you_have_set_new_best_score">CONGRATULATIONS! YOU HAVE SET A NEW BEST SCORE!</string>
     <string name="you_win">YOU WIN!</string>
     <string name="no_best_score_recorded">No best score recorded.</string>
+    <string name="number_of_games_played">\"Number of games played: \"</string>
 </resources>
