@@ -1,6 +1,5 @@
 package ca.cmpt276.as3;
 
-import androidx.annotation.ChecksSdkIntAtLeast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import ca.cmpt276.as3.model.GameOption;
@@ -16,13 +15,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import static java.lang.reflect.Array.getInt;
-
-/**
- * OptionsActivity class provides a screen for user to select game configurations.
- * In this activity, user can select game board size and total numbers of puppies to be found.
- * This activity also saves these configuration values into GameOption instance and SharedPreferences to be used across the app.
- */
 public class OptionsActivity extends AppCompatActivity {
 
     public static final String APP_PREFERENCES = "AppPreferences";
@@ -54,7 +46,7 @@ public class OptionsActivity extends AppCompatActivity {
             final int numRow = numRows[i];
 
             RadioButton button = new RadioButton(this);
-            button.setText(getString(R.string.rows_by, numRow) + " " + getString(R.string.columns, numCol));
+            button.setText(String.format("%s %s", getString(R.string.rows_by, numRow), getString(R.string.columns, numCol)));
 
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -92,9 +84,7 @@ public class OptionsActivity extends AppCompatActivity {
         RadioGroup group = (RadioGroup) findViewById(R.id.radio_group_puppies);
         int[] numPuppies = getResources().getIntArray(R.array.num_puppies);
 
-        for (int i = 0; i < numPuppies.length; i++){
-            final int numPuppy = numPuppies[i];
-
+        for (final int numPuppy : numPuppies) {
             RadioButton button = new RadioButton(this);
             button.setText(getString(R.string.puppies, numPuppy));
 
@@ -109,7 +99,7 @@ public class OptionsActivity extends AppCompatActivity {
             group.addView(button);
 
             // Select default button
-            if(numPuppy == getNumPuppies(this)){
+            if (numPuppy == getNumPuppies(this)) {
                 button.setChecked(true);
             }
         }
@@ -132,8 +122,7 @@ public class OptionsActivity extends AppCompatActivity {
 
     public static Intent makeIntent(Context context)
     {
-        Intent intent = new Intent(context, OptionsActivity.class);
-        return intent;
+        return new Intent(context, OptionsActivity.class);
     }
 
     private void setUpResetButton()

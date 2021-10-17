@@ -30,13 +30,6 @@ import java.util.Locale;
 import ca.cmpt276.as3.model.Game;
 import ca.cmpt276.as3.model.GameOption;
 
-/**
- * GameScreenActivity class provides an interactive game board screen for user to play the game.
- * This activity class shows all the cells in the game board, and reveal a puppy image when user clicks a cell containing a hidden puppy.
- * This class displays the scan result in each cell when user clicks on a cell with no hidden puppy.
- * GameScreenActivity class also displays the number of puppies found, the number of scans used, total number of games played and best score for this game configuration.
- * This class also displays a dialog to congratulate user upon winning the game.
- */
 public class GameScreenActivity extends AppCompatActivity {
     GameOption gameOption;
     Game game;
@@ -93,8 +86,8 @@ public class GameScreenActivity extends AppCompatActivity {
     }
 
     private void displayGameHistory() {
-        TextView tvtimes_game_played = findViewById(R.id.textViewTimesPlayed);
-        tvtimes_game_played.setText(String.format("%s %d", getString(R.string.number_of_games_played)
+        TextView tvTimesGamePlayed = findViewById(R.id.textViewTimesPlayed);
+        tvTimesGamePlayed.setText(String.format(Locale.CANADA,"%s%d", getString(R.string.number_of_games_played)
                 , gameOption.getTimesPlayed()));
 
         TextView tv_high_score= findViewById(R.id.textViewHighScore);
@@ -103,7 +96,7 @@ public class GameScreenActivity extends AppCompatActivity {
             tv_high_score.setText(R.string.no_best_score_recorded);
         }
         else {
-            tv_high_score.setText("Best score: " + highScore);
+            tv_high_score.setText(String.format(Locale.CANADA, "%s%d", getString(R.string.best_score), highScore));
         }
     }
 
@@ -203,7 +196,7 @@ public class GameScreenActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        buttons[row][col].setText("" + game.getScanValueAtTile(row, col));
+                        buttons[row][col].setText(String.format(Locale.CANADA,"%d", game.getScanValueAtTile(row, col)));
                     }
                 }, (max+1) * 150L + 150L);
             }
@@ -244,8 +237,6 @@ public class GameScreenActivity extends AppCompatActivity {
         boolean bottom = true;
         boolean left = true;
         int i = 0;
-
-        Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
 
         while (top || right || bottom || left) {
             final int k = i;
