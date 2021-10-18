@@ -14,7 +14,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/appBarLayout2"
-        app:srcCompat="@drawable/_3836_7_golden_retriever_puppy_file" />
+        app:srcCompat="@drawable/_3836_7_golden_retriever_puppy_file"
+        android:contentDescription="@string/golden_retriever_puppy" />
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"

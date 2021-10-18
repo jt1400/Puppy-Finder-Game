@@ -57,7 +57,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-
             }
         });
 

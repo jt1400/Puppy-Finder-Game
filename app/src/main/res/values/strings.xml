@@ -5,8 +5,7 @@
     <string name="puppies">%1$d puppies</string>
     <string name="number_of_scans_used">Number of scans used:</string>
     <string name="help">Help</string>
-    <string name="options">Game options</string>
-    <string name="main_menu">Main menu</string>
+    <string name="options">Options</string>
 
     <string name="game_instructions">
         Find the hidden puppies clicking on any of the cells on your game screen.
@@ -48,4 +47,18 @@
     <string name="no_best_score_recorded">No best score recorded</string>
     <string name="number_of_games_started">Number of games started: </string>
     <string name="best_score">"Best score: "</string>
+    <string name="play_game">Play game!</string>
+    <string name="confetti">Confetti</string>
+    <string name="skip">SKIP</string>
+    <string name="by_ai_vy_and_jocelyn_tandrea">by Ai Vy and Jocelyn Tandrea</string>
+    <string name="where_s">WHERE\'S</string>
+    <string name="my">MY ?</string>
+    <string name="puppy">PUPPY?</string>
+    <string name="select_game_board_size">Select game board size</string>
+    <string name="select_total_number_of_puppies">Select total number of puppies</string>
+    <string name="reset_scores">Reset Scores</string>
+    <string name="golden_retriever_puppy">Golden retriever puppy</string>
+    <string name="hyphen">-</string>
+    <string name="all_scores_have_been_reset">All scores have been reset!</string>
+    <string name="are_you_sure_you_want_to_reset_all_game_scores">Are you sure you want to reset all game scores?</string>
 </resources>

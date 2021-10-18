@@ -37,11 +37,6 @@ public class WinDialogFragment extends AppCompatDialogFragment{
         TextView tvWinMes = v.findViewById(R.id.winMessage);
         tvWinMes.setText(this.winMessage);
 
-        DialogInterface.OnClickListener listener = (dialogInterface, i) -> {
-            if(i == DialogInterface.BUTTON_NEUTRAL){
-                getActivity().finish();
-            }
-        };
 
         TextView title = new TextView(getContext());
         title.setText(R.string.you_win);
@@ -51,11 +46,10 @@ public class WinDialogFragment extends AppCompatDialogFragment{
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setCustomTitle(title)
+        AlertDialog dialog = builder.setCustomTitle(title)
                 .setView(v)
-                .setNeutralButton(android.R.string.ok, listener)
+                .setNeutralButton(android.R.string.ok, null)
                 .create();
-        AlertDialog dialog = builder.create();
         dialog.show();
 
         Button okButton = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
@@ -63,5 +57,11 @@ public class WinDialogFragment extends AppCompatDialogFragment{
         okButtonLL.width = ViewGroup.LayoutParams.MATCH_PARENT;
         okButton.setLayoutParams(okButtonLL);
         return dialog;
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        getActivity().finish();
     }
 }

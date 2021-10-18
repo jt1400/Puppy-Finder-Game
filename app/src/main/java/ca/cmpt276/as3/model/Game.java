@@ -19,8 +19,7 @@ public class Game {
     private int numOfScans;
     private Tile tiles[][];
 
-    public Game(GameOption options)
-    {
+    public Game(GameOption options) {
         this.NUM_ROWS = options.getNumRow();
         this.NUM_COLS = options.getNumCol();
         this.NUM_PUPPIES = options.getNumPuppy();

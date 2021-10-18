@@ -12,7 +12,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/winMessage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/winMessage"
-        app:srcCompat="@drawable/confetti" />
+        app:srcCompat="@drawable/confetti"
+        android:contentDescription="@string/confetti" />
 
     <ImageView
         android:id="@+id/imageView9"
@@ -22,7 +23,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/winMessage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/winMessage"
-        app:srcCompat="@drawable/confetti" />
+        app:srcCompat="@drawable/confetti"
+        android:contentDescription="@string/confetti" />
 
     <TextView
         android:id="@+id/winMessage"
