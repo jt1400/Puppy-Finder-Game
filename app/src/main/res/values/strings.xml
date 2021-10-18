@@ -9,10 +9,11 @@
     <string name="main_menu">Main menu</string>
 
     <string name="game_instructions">
-        To find a hidden puppy, you can click on any of the cell on your game screen.
-        If the cell happens to contain a hidden puppy, then congrats, you have just found one more puppy.
+        Find the hidden puppies clicking on any of the cells on your game screen.
+        If the cell happens to contain a hidden puppy, then congrats, you have just found one more puppy!
         If the cell does not contain a hidden puppy, then it will show you the number of hidden puppies left on that row and column.
         You can also click on a puppy to trigger the scan on its row and column for hidden puppies.
+        You win when you found all the hidden puppies.
     </string>
 
     <string name="link_course_website">

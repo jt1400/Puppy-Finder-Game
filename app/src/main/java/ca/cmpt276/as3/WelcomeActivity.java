@@ -1,7 +1,6 @@
 package ca.cmpt276.as3;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Lifecycle;
 
 import android.content.Intent;
 import android.net.Uri;
