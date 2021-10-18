@@ -1,6 +1,7 @@
 package ca.cmpt276.as3;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Lifecycle;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -48,7 +49,9 @@ public class WelcomeActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        launchMainMenu();
+                        if(!MainMenu.isActive()) {
+                            launchMainMenu();
+                        }
                     }
                 }, 4000);
             }

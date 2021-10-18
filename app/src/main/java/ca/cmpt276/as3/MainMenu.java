@@ -19,10 +19,12 @@ import ca.cmpt276.as3.model.GameOption;
  */
 public class MainMenu extends AppCompatActivity {
     private GameOption gameOption;
+    private static boolean active = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        active = true;
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         setContentView(R.layout.activity_main_menu);
 
@@ -33,6 +35,22 @@ public class MainMenu extends AppCompatActivity {
         setUpButtonPlayGame();
         setUpButtonOptions();
         setUpButtonHelp();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        active = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        active = false;
+    }
+
+    public static boolean isActive(){
+        return active;
     }
 
     private void loadGameConfiguration()
